@@ -27,11 +27,14 @@ new Vue({
         gameOver() {
             if (this.playerOne.health < 0) {
                 this.gameIsRunning = false;
+                this.historyLog = [];
             }
 
             if (this.playerTwo.health < 0) {
                 this.gameIsRunning = false;
+                this.historyLog = [];
             }
+
         },
         attack() {
             this.playerOneAttack();
@@ -93,6 +96,7 @@ new Vue({
             this.gameIsRunning = false;
             this.playerOne.health = 100;
             this.playerTwo.health = 100;
+            this.historyLog = [];
         },
     },
 });

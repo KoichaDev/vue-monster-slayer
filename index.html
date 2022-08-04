@@ -63,22 +63,6 @@
 								<p class="player-turn" v-if="log.isPlayerOne">{{log.message }}</p>
 								<p class="monster-turn" v-if="log.isPlayerTwo">{{log.message }}</p>
 							</li>
-
-							<!-- <li class="player-turn" v-for="(specialDamage, index) in dmgSpecialHistoryLog">
-								<p class="player-turn" v-if="index % 2 === 0">
-									PLAYER HITS SPECIAL ATTACK MONSTER FOR {{100 - specialDamage}}
-								</p>
-								<p class="monster-turn" v-else>
-									PLAYER HITS MONSTER SPECIAL ATTACK FOR {{100 - specialDamage}}
-								</p>
-							</li>
-
-							<li class="player-turn" v-for="(healingPower, index) in healHistoryLog">
-								<p class="player-turn" v-if="index % 2 === 0">
-									PLAYER HEALED {{healingPower - 100}}
-								</p>
-								<p class="monster-turn" v-else>MONSTER HEALED {{healingPower - 100}}</p>
-							</li> -->
 						</ul>
 					</div>
 				</section>
