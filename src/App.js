@@ -56,8 +56,16 @@ new Vue({
             this.gameOver();
         },
         heal() {
-            const playerOneHealingPower = (this.playerOne.health += this.playerOne.heal);
-            const playerTwoHealingPower = (this.playerTwo.health += this.playerTwo.heal);
+            let playerOneHealingPower = 0;
+            let playerTwoHealingPower = 0;
+
+            if (this.playerOne.health < 100) {
+                playerOneHealingPower = (this.playerOne.health += this.playerOne.heal);
+            }
+
+            if (this.playerTwo.health < 100) {
+                playerTwoHealingPower = (this.playerTwo.health += this.playerTwo.heal);
+            }
 
             this.healHistoryLog.push(playerOneHealingPower, playerTwoHealingPower);
         },
