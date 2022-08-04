@@ -43,7 +43,7 @@ new Vue({
 
             this.historyLog.unshift({
                 isPlayerOne: true,
-                message: `PLAYER HITS MONSTER FOR ${100 - attackDmg} DAMAGE`
+                message: `PLAYER HITS MONSTER FOR ${100 - attackDmg} DAMAGE`,
             });
         },
         playerTwoAttack() {
@@ -51,7 +51,7 @@ new Vue({
 
             this.historyLog.unshift({
                 isPlayerTwo: true,
-                message: `MONSTER HITS PLAYER FOR ${100 - attackDmg} DAMAGE`
+                message: `MONSTER HITS PLAYER FOR ${100 - attackDmg} DAMAGE`,
             });
         },
         specialAttack() {
@@ -60,30 +60,34 @@ new Vue({
 
             this.historyLog.unshift({
                 isPlayerOne: true,
-                message: `PLAYER HITS SPECIAL ATTACK ON MONSTER FOR ${100 - playerOneSpecialDmg} DAMAGE`
+                message: `PLAYER HITS SPECIAL ATTACK ON MONSTER FOR ${100 - playerOneSpecialDmg} DAMAGE`,
             });
 
             this.historyLog.unshift({
                 isPlayerTwo: true,
-                message: `PLAYER HITS SPECIAL ATTACK ON MONSTER FOR ${100 - playerTwoSpecialDmg} DAMAGE`
+                message: `PLAYER HITS SPECIAL ATTACK ON MONSTER FOR ${100 - playerTwoSpecialDmg} DAMAGE`,
             });
 
-            // this.historyLog.push(playerOneSpecialDmg, playerTwoSpecialDmg);
             this.gameOver();
         },
         heal() {
-            let playerOneHealingPower = 0;
-            let playerTwoHealingPower = 0;
+            let healingPower = 0;
 
             if (this.playerOne.health < 100) {
-                playerOneHealingPower = (this.playerOne.health += this.playerOne.heal);
+                healingPower = this.playerOne.health += this.playerOne.heal;
+                this.historyLog.unshift({
+                    isPlayerOne: true,
+                    message: `PLAYER HEALS HIMSELF ${100 - healingPower}`,
+                });
             }
 
             if (this.playerTwo.health < 100) {
-                playerTwoHealingPower = (this.playerTwo.health += this.playerTwo.heal);
+                healingPower = this.playerTwo.health += this.playerTwo.heal;
+                this.historyLog.unshift({
+                    isPlayerTwo: true,
+                    message: `MONSTER HEALS ITSELF FOR ${100 - healingPower}`,
+                });
             }
-
-            this.historyLog.push(playerOneHealingPower, playerTwoHealingPower);
         },
         giveUp() {
             this.gameIsRunning = false;
