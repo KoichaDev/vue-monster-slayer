@@ -1,0 +1,62 @@
+const setAttackDmg = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const setHealingPower = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+new Vue({
+    el: '#app',
+    data: {
+        playerOne: {
+            health: 100,
+            attack: setAttackDmg(1, 10),
+            specialAttack: setAttackDmg(10, 20),
+            heal: setHealingPower(5, 15),
+        },
+        playerTwo: {
+            health: 100,
+            attack: setAttackDmg(1, 10),
+            specialAttack: setAttackDmg(10, 20),
+            heal: setHealingPower(5, 15),
+        },
+        gameIsRunning: false,
+        dmgHistoryLog: [],
+        dmgSpecialHistoryLog: [],
+        healHistoryLog: [],
+        gameOverMessage: (message) => alert(message),
+    },
+    methods: {
+        startGame() {
+            this.gameIsRunning = true;
+        },
+        gameOver() {
+            if (this.playerOne.health = 0) {
+                this.gameIsRunning = false;
+            }
+
+            if (this.playerTwo.health < 0) {
+                this.gameIsRunning = false;
+            }
+        },
+        attack() {
+            const playerOneDmg = (this.playerOne.health -= this.playerTwo.attack);
+            const playerTwoDmg = (this.playerTwo.health -= this.playerOne.attack);
+
+            this.dmgHistoryLog.push(playerOneDmg, playerTwoDmg);
+        },
+        specialAttack() {
+            const playerOneSpecialDmg = (this.playerOne.health -= this.playerTwo.specialAttack);
+            const playerTwoSpecialDmg = (this.playerTwo.health -= this.playerOne.specialAttack);
+
+            this.dmgSpecialHistoryLog.push(playerOneSpecialDmg, playerTwoSpecialDmg);
+        },
+        heal() {
+            const playerOneHealingPower = (this.playerOne.health += this.playerOne.heal);
+            const playerTwoHealingPower = (this.playerTwo.health += this.playerTwo.heal);
+
+            this.healHistoryLog.push(playerOneHealingPower, playerTwoHealingPower);
+        },
+        giveUp() {
+            this.gameIsRunning = false;
+            this.playerOne.health = 100;
+            this.playerTwo.health = 100;
+        },
+    },
+});
