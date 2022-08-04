@@ -17,9 +17,7 @@ new Vue({
             heal: setHealingPower(5, 15),
         },
         gameIsRunning: false,
-        dmgHistoryLog: [],
-        dmgSpecialHistoryLog: [],
-        healHistoryLog: [],
+        historyLog: [],
         gameOverMessage: (message) => alert(message),
     },
     methods: {
@@ -41,18 +39,36 @@ new Vue({
             this.gameOver();
         },
         playerOneAttack() {
-            const playerOneDmg = (this.playerOne.health -= this.playerTwo.attack);
-            this.dmgHistoryLog.push(playerOneDmg);
+            const attackDmg = (this.playerOne.health -= this.playerTwo.attack);
+
+            this.historyLog.unshift({
+                isPlayerOne: true,
+                message: `PLAYER HITS MONSTER FOR ${100 - attackDmg} DAMAGE`
+            });
         },
         playerTwoAttack() {
-            const playerTwoDmg = (this.playerTwo.health -= this.playerOne.attack);
-            this.dmgHistoryLog.push(playerTwoDmg);
+            const attackDmg = (this.playerTwo.health -= this.playerOne.attack);
+
+            this.historyLog.unshift({
+                isPlayerTwo: true,
+                message: `MONSTER HITS PLAYER FOR ${100 - attackDmg} DAMAGE`
+            });
         },
         specialAttack() {
             const playerOneSpecialDmg = (this.playerOne.health -= this.playerTwo.specialAttack);
             const playerTwoSpecialDmg = (this.playerTwo.health -= this.playerOne.specialAttack);
 
-            this.dmgSpecialHistoryLog.push(playerOneSpecialDmg, playerTwoSpecialDmg);
+            this.historyLog.unshift({
+                isPlayerOne: true,
+                message: `PLAYER HITS SPECIAL ATTACK ON MONSTER FOR ${100 - playerOneSpecialDmg} DAMAGE`
+            });
+
+            this.historyLog.unshift({
+                isPlayerTwo: true,
+                message: `PLAYER HITS SPECIAL ATTACK ON MONSTER FOR ${100 - playerTwoSpecialDmg} DAMAGE`
+            });
+
+            // this.historyLog.push(playerOneSpecialDmg, playerTwoSpecialDmg);
             this.gameOver();
         },
         heal() {
@@ -67,7 +83,7 @@ new Vue({
                 playerTwoHealingPower = (this.playerTwo.health += this.playerTwo.heal);
             }
 
-            this.healHistoryLog.push(playerOneHealingPower, playerTwoHealingPower);
+            this.historyLog.push(playerOneHealingPower, playerTwoHealingPower);
         },
         giveUp() {
             this.gameIsRunning = false;
