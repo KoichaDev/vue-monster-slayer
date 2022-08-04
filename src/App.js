@@ -25,16 +25,26 @@ new Vue({
             this.gameIsRunning = true;
         },
         gameOver() {
+            let gameOverMessage = ''
+
             if (this.playerOne.health < 0) {
-                this.gameIsRunning = false;
                 this.historyLog = [];
+                this.gameIsRunning = false;
+                gameOverMessage = 'Player Two Wins!';
             }
 
             if (this.playerTwo.health < 0) {
-                this.gameIsRunning = false;
                 this.historyLog = [];
+                this.gameIsRunning = false;
+                gameOverMessage = 'Player One Wins!';
+
             }
 
+            if (this.gameIsRunning === false) {
+                this.playerOne.health = 100;
+                this.playerTwo.health = 100;
+                this.gameOverMessage(gameOverMessage)
+            }
         },
         attack() {
             this.playerOneAttack();
