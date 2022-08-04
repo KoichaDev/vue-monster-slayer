@@ -27,7 +27,7 @@ new Vue({
             this.gameIsRunning = true;
         },
         gameOver() {
-            if (this.playerOne.health = 0) {
+            if (this.playerOne.health < 0) {
                 this.gameIsRunning = false;
             }
 
@@ -40,12 +40,15 @@ new Vue({
             const playerTwoDmg = (this.playerTwo.health -= this.playerOne.attack);
 
             this.dmgHistoryLog.push(playerOneDmg, playerTwoDmg);
+            this.gameOver()
         },
         specialAttack() {
             const playerOneSpecialDmg = (this.playerOne.health -= this.playerTwo.specialAttack);
             const playerTwoSpecialDmg = (this.playerTwo.health -= this.playerOne.specialAttack);
 
             this.dmgSpecialHistoryLog.push(playerOneSpecialDmg, playerTwoSpecialDmg);
+            this.gameOver()
+
         },
         heal() {
             const playerOneHealingPower = (this.playerOne.health += this.playerOne.heal);
