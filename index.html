@@ -59,7 +59,7 @@
 				<section class="row log">
 					<div class="small-12 columns">
 						<ul>
-							<li class="player-turn" v-for="(log, index) in historyLog">
+							<li class="player-turn" v-for="(log, index) in historyLog" v-bind:key="index">
 								<p class="player-turn" v-if="log.isPlayerOne">{{log.message }}</p>
 								<p class="monster-turn" v-if="log.isPlayerTwo">{{log.message }}</p>
 							</li>
