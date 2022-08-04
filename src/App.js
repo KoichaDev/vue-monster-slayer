@@ -36,19 +36,24 @@ new Vue({
             }
         },
         attack() {
+            this.playerOneAttack();
+            this.playerTwoAttack();
+            this.gameOver();
+        },
+        playerOneAttack() {
             const playerOneDmg = (this.playerOne.health -= this.playerTwo.attack);
+            this.dmgHistoryLog.push(playerOneDmg);
+        },
+        playerTwoAttack() {
             const playerTwoDmg = (this.playerTwo.health -= this.playerOne.attack);
-
-            this.dmgHistoryLog.push(playerOneDmg, playerTwoDmg);
-            this.gameOver()
+            this.dmgHistoryLog.push(playerTwoDmg);
         },
         specialAttack() {
             const playerOneSpecialDmg = (this.playerOne.health -= this.playerTwo.specialAttack);
             const playerTwoSpecialDmg = (this.playerTwo.health -= this.playerOne.specialAttack);
 
             this.dmgSpecialHistoryLog.push(playerOneSpecialDmg, playerTwoSpecialDmg);
-            this.gameOver()
-
+            this.gameOver();
         },
         heal() {
             const playerOneHealingPower = (this.playerOne.health += this.playerOne.heal);
